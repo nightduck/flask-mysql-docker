@@ -1,7 +1,6 @@
-CREATE user dms_user;
 CREATE database dms_db;
 USE dms_db;
-GRANT ALL on dms_db to dms_user;
+GRANT ALL on dms_db to root;
 CREATE table events (
     ContactID int,
     TriggerTime time,

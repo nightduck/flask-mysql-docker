@@ -5,10 +5,10 @@ app = Flask(__name__)
 
 config = {
         'user': 'root',
-        'password': 'root',
+        'password': 'enterpasswordhere',
         'host': 'db',
         'port': '3306',
-        'database': 'knights'
+        'database': 'dms_db'
     }
 connection = mysql.connector.connect(**config)
 
@@ -18,4 +18,4 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
