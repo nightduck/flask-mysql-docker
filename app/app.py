@@ -3,9 +3,12 @@ import mysql.connector
 
 app = Flask(__name__)
 
+passwd_fin = open("/run/secrets/db-password", 'r')
+password = passwd_fin.readline()
+
 config = {
         'user': 'root',
-        'password': 'enterpasswordhere',
+        'password': password,
         'host': 'db',
         'port': '3306',
         'database': 'dms_db'
