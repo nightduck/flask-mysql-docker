@@ -5,9 +5,8 @@ import re
 
 app = flask.Flask(__name__)
 
-#passwd_fin = open("/run/secrets/db-password", 'r')
-#password = passwd_fin.readline()
-password = "enterpasswordhere"
+passwd_fin = open("/run/secrets/db-password", 'r')
+password = passwd_fin.readline()
 
 config = {
         'user': 'root',
@@ -31,10 +30,13 @@ def greet_user(user_id):
     cur.close()
     connection.close()
 
+    if row == None:
+        return flask.Response(status=404)
+
     return_str = "Hello %s %s" % (row[1], row[2])
 
     today = datetime.date.today()
-    if row[0] == today:
+    if row[0].day == today.day and row[0].month == today.month:
         return_str += "\nHappy birthday!"
 
     return return_str
@@ -49,15 +51,8 @@ def create_user(first, last, birthday):
 
     connection = mysql.connector.connect(**config)
     cur = connection.cursor()
-    query = 'INSERT INTO birthdays(Firstname, LastName, Birthday) VALUES ("%s", "%s", "%s");' % (first, last, str(birthday))
-    try:
-        cur.execute(query)
-    
-        connection.commit()
-    except:
-        cur.close()
-        connection.close()
-        return query
+    cur.execute('INSERT INTO birthdays(Firstname, LastName, Birthday) VALUES ("%s", "%s", "%s");' % (first, last, str(birthday)))
+    connection.commit()
 
     cur.close()
     connection.close()
