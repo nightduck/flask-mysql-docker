@@ -1,3 +1,4 @@
+/* EDIT ME */
 CREATE database dms_db;
 USE dms_db;
 GRANT ALL on dms_db to root;
