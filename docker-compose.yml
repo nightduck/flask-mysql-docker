@@ -7,7 +7,7 @@ services:
     command: '--default-authentication-plugin=mysql_native_password'
     secrets:
       - db-password
-    ports:                        # Comment out these two lines if you don't want to expose this on the host's network
+    ports:
       - "28019:3306"
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db-password
